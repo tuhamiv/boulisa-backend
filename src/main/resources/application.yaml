@@ -1,3 +1,7 @@
 spring:
   application:
-    name: backend
+    name: boulisa
+  datasource:
+    url: ${BOULISA_DB_URL}
+    username: ${BOULISA_DB_USERNAME}
+    password: ${BOULISA_DB_PASSWORD}
