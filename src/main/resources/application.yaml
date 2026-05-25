@@ -2,6 +2,12 @@ spring:
   application:
     name: boulisa
   datasource:
-    url: ${BOULISA_DB_URL}
-    username: ${BOULISA_DB_USERNAME}
-    password: ${BOULISA_DB_PASSWORD}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  flyway:
+    url: ${DB_URL_FLYWAY}
+    user: ${DB_USER_FLYWAY}
+    password: ${DB_PASSWORD_FLYWAY}
+    baseline-on-migrate: true
+    baseline-version: 0
