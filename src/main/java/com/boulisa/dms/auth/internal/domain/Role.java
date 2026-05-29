@@ -2,16 +2,14 @@ package com.boulisa.dms.auth.internal.domain;
 
 import jakarta.persistence.EnumeratedValue;
 
-public enum Plan {
+public enum Role {
 
-    PRO(100),
-
-    ELITE(200);
+    CARRIER(100);
 
     @EnumeratedValue
     private final int code;
 
-    Plan(int code) {
+    Role(int code) {
         this.code = code;
     }
 
