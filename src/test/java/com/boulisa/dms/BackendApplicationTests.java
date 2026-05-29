@@ -21,8 +21,9 @@ class BackendApplicationTests {
 
     @Test
     void writeDocumentationSnippets() {
-        modules.forEach(System.out::println);
-        new Documenter(modules).writeModulesAsPlantUml();
+        new Documenter(modules)
+                .writeModulesAsPlantUml()
+                .writeIndividualModulesAsPlantUml();
     }
 
 }

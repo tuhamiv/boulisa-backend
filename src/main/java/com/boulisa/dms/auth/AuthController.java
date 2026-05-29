@@ -1,16 +1,35 @@
 package com.boulisa.dms.auth;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.boulisa.dms.auth.internal.dto.SignupRequest;
+import com.boulisa.dms.auth.internal.dto.SignupResponse;
+import com.boulisa.dms.auth.internal.exception.CarrierAlreadyExistsException;
+import com.boulisa.dms.auth.internal.service.AuthService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AuthController {
 
-    @PostMapping("/api/v1/auth/signup")
-    public String signup() { return "signup-endpoint"; }
+    private final AuthService authService;
 
-    @GetMapping("/api/v1/auth/login")
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
+
+    @PostMapping("/v1/auth/signup")
+    public ResponseEntity<SignupResponse> signup(@Valid @RequestBody SignupRequest signupRequest) {
+        authService.createCarrier(signupRequest);
+        return new ResponseEntity<>(new SignupResponse("Carrier created successfully"), HttpStatus.CREATED);
+    }
+
+    @ExceptionHandler(CarrierAlreadyExistsException.class)
+    public ResponseEntity<String> handleCarrierAlreadyExistsException(CarrierAlreadyExistsException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+    @GetMapping("/v1/auth/login")
     public String login() {
         return "login-endpoint";
     }
